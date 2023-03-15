@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DuckDuckGoose.Models;
+using DuckDuckGoose.Models.ViewModels;
 
 namespace DuckDuckGoose.Controllers;
 

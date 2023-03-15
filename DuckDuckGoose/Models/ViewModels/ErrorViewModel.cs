@@ -1,4 +1,4 @@
-namespace DuckDuckGoose.Models;
+namespace DuckDuckGoose.Models.ViewModels;
 
 public class ErrorViewModel
 {

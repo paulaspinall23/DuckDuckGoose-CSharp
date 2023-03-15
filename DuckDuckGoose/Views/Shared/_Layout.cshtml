@@ -8,42 +8,41 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="@Url.Action("Index", "Home")" />
     <meta property="og:image" content="~/images/android-chrome-512x512.png" />
-    <title>@ViewData["Title"] - DuckDuckGoose</title>
+    <title>DuckDuckGoose</title>
     <link rel="apple-touch-icon" sizes="180x180" href="~/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon-16x16.png">
     <link rel="manifest" href="~/manifests/site.webmanifest">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
     <link rel="stylesheet" href="~/css/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 </head>
 <body style="background: url('/images/background.png') center / cover no-repeat fixed;">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DuckDuckGoose</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial"/>
-                </div>
+    <header class="fixed-top">
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container-fluid justify-content-between">
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand d-flex align-items-center">
+                <img src="/images/logo.png" alt="Logo" width="48" height="48" style="margin: -12px 0 -12px -6px;">
+                DuckDuckGoose
+            </a>
+            <div class="d-flex">
+                <partial name="_LoginPartial" />
+            </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg bg-light shadow">
+            <div class="container-fluid justify-content-start">
+            <a asp-controller="Honk" asp-action="Index" class="btn btn-outline-primary btn-sm me-2">Honks</a>
+            <a asp-controller="User" asp-action="Index" class="btn btn-outline-primary btn-sm me-2">Users</a>
+            <a asp-controller="Honk" asp-action="CreateHonkForm" class="btn btn-outline-primary btn-sm">Post a honk</a>
             </div>
         </nav>
     </header>
     <main role="main" class="mx-auto mb-5 p-3 text-center">
         @RenderBody()
     </main>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

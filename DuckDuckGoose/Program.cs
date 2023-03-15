@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DuckDuckGoose.Areas.Identity.Data;
+using DuckDuckGoose.Repositories;
+
 // using DuckDuckGoose.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,9 @@ builder.Services.AddDefaultIdentity<DuckDuckGooseUser>(options => options.SignIn
     .AddEntityFrameworkStores<DuckDuckGooseIdentityDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IHonkRepo, HonkRepo>();
+builder.Services.AddTransient<IUserRepo, UserRepo>();
 
 var app = builder.Build();
 
