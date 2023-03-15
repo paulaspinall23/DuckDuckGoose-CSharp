@@ -3,6 +3,7 @@ using System;
 using DuckDuckGoose.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DuckDuckGoose.Migrations
 {
     [DbContext(typeof(DuckDuckGooseIdentityDbContext))]
-    partial class DuckDuckGooseIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230315122644_AddUserFollows")]
+    partial class AddUserFollows
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,31 +86,6 @@ namespace DuckDuckGoose.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("DuckDuckGoose.Models.Database.Honk", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Honks");
                 });
 
             modelBuilder.Entity("DuckDuckGooseUserDuckDuckGooseUser", b =>
@@ -262,15 +239,6 @@ namespace DuckDuckGoose.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DuckDuckGoose.Models.Database.Honk", b =>
-                {
-                    b.HasOne("DuckDuckGoose.Areas.Identity.Data.DuckDuckGooseUser", "User")
-                        .WithMany("Honks")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("DuckDuckGooseUserDuckDuckGooseUser", b =>
                 {
                     b.HasOne("DuckDuckGoose.Areas.Identity.Data.DuckDuckGooseUser", null)
@@ -335,11 +303,6 @@ namespace DuckDuckGoose.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DuckDuckGoose.Areas.Identity.Data.DuckDuckGooseUser", b =>
-                {
-                    b.Navigation("Honks");
                 });
 #pragma warning restore 612, 618
         }

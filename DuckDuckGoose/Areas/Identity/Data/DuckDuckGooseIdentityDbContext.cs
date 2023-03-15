@@ -1,4 +1,5 @@
 using DuckDuckGoose.Areas.Identity.Data;
+using DuckDuckGoose.Models.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ namespace DuckDuckGoose.Areas.Identity.Data;
 
 public class DuckDuckGooseIdentityDbContext : IdentityDbContext<DuckDuckGooseUser>
 {
+    public DbSet<Honk> Honks { get; set; }
+    
     public DuckDuckGooseIdentityDbContext(DbContextOptions<DuckDuckGooseIdentityDbContext> options)
         : base(options)
     {
