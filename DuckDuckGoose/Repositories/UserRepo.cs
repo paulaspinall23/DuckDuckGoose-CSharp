@@ -90,7 +90,7 @@ public class UserRepo : IUserRepo
             throw new ArgumentOutOfRangeException($"Could not find user to follow with id {followeeId}", e);
         }
 
-        followee.Followers = followee.Followers.Where(u => u != follower);
+        followee.Followers = followee.Followers.Where(u => u != follower).ToList();
         _context.SaveChanges();
     }
 

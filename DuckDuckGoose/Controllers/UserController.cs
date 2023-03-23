@@ -82,4 +82,22 @@ public class UserController : Controller
 
         return RedirectToAction("UserPage", new { userId });
     }
+    
+    [HttpPost("{userId}/unfollow")]
+    public async Task<IActionResult> Unfollow([FromRoute] string userId)
+    {
+        var follower = await _userManager.GetUserAsync(_httpContext.HttpContext?.User);
+        string followerId = follower.Id;
+
+        try
+        {
+            _users.Unfollow(followerId, userId);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return NotFound($"Could not find user with ID {userId}");
+        }
+
+        return RedirectToAction("UserPage", new { userId });
+    }
 }

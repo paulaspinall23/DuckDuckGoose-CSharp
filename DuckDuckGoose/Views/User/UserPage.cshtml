@@ -36,7 +36,7 @@
     }
     else
     {
-        <form method="post" action="{{ url_for('unfollow_user', user_id=user.id) }}">
+        <form method="post" asp-action="Unfollow" asp-route-userId="@Model.Id">
             <p class="lh-sm mt-1 mb-0">
                 You are currently following <strong>@Model.UserName</strong>.
                 <button class="btn btn-link align-baseline lh-sm p-0" type="submit">Unfollow them</button> to stop seeing their honks in your feed.
