@@ -47,7 +47,7 @@ public class HonkRepo : IHonkRepo
                 .Where(h => h.User.Followers.Any(u => u.Id == request.Filter));
         }
 
-        return Pagination<Honk>.Paginate(filteredHonks, request.Page ?? 1, 5);
+        return Pagination<Honk>.Paginate(filteredHonks, request.PageNumber ?? 1, 5);
     }
 
     public Honk CreateHonk(string content, string userId)
