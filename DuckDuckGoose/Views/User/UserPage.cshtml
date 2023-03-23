@@ -27,7 +27,7 @@
     }
     else if (Model.Followers.SingleOrDefault(u => u.Id == UserManager.GetUserId(User)) is null)
     {
-        <form method="post" action="{{ url_for('follow_user', user_id=user.id) }}">
+        <form method="post" asp-action="Follow" asp-route-userId="@Model.Id">
             <p class="lh-sm mt-1 mb-0">
                 You aren't currently following <strong>@Model.UserName</strong>.
                 <button class="btn btn-link align-baseline lh-sm p-0" type="submit">Follow them</button> to see their honks in your feed in future.
