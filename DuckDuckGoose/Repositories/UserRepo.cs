@@ -106,6 +106,6 @@ public class UserRepo : IUserRepo
                 .Where(user => user.UserName.Contains(request.Search));
         }
 
-        return Pagination<DuckDuckGooseUser>.Paginate(filteredUsers, request.Page.HasValue ? request.Page.Value : 1, 5);
+        return Pagination<DuckDuckGooseUser>.Paginate(filteredUsers, request.PageNumber.HasValue ? request.PageNumber.Value : 1, 5);
     }
 }
