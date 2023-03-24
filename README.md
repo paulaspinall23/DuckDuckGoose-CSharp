@@ -25,6 +25,8 @@
 
 1. Run `dotnet run` to launch the app!
 
+If you get a security error when running the app, add and trust a self-signed certificate with `dotnet dev-certs https --trust`.
+
 ## Setting up PostgreSQL
 
 Before you run the app you will need to make sure you've got PostgreSQL installed and a database set up.
