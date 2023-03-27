@@ -26,13 +26,15 @@ public class HonkRepo : IHonkRepo
     public IEnumerable<Honk> GetAllHonks()
     {
         return _context.Honks
-            .Include(h => h.User);
+            .Include(h => h.User)
+            .OrderByDescending(h => h.Timestamp);
     }
 
     public Pagination<Honk> GetHonks(GetHonksRequest request)
     {
         IQueryable<Honk> filteredHonks = _context.Honks
-            .Include(h => h.User);
+            .Include(h => h.User)
+            .OrderByDescending(h => h.Timestamp);
         if (request.Search is not null)
         {
             filteredHonks = filteredHonks
@@ -79,6 +81,13 @@ public class HonkRepo : IHonkRepo
 
     public Pagination<Honk> GetPaginatedHonks(int page, int perPage = 5)
     {
-        return Pagination<Honk>.Paginate(_context.Honks.Include(h => h.User), page, perPage);
+        return Pagination<Honk>.Paginate
+        (
+            _context.Honks
+                .Include(h => h.User)
+                .OrderByDescending(h => h.Timestamp),
+            page,
+            perPage
+        );
     }
 }

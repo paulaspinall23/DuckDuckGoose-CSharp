@@ -51,7 +51,7 @@ public class UserRepo : IUserRepo
 
     public IEnumerable<DuckDuckGooseUser> GetAllUsers()
     {
-        return _context.Users;
+        return _context.Users.OrderBy(u => u.UserName);
     }
 
     public DuckDuckGooseUser GetUserById(string id)
@@ -97,6 +97,7 @@ public class UserRepo : IUserRepo
     public Pagination<DuckDuckGooseUser> GetUsers(GetUsersRequest request)
     {
         IQueryable<DuckDuckGooseUser> filteredUsers = _context.Users
+            .OrderBy(u => u.UserName)
             .Include(u => u.Followers)
             .Include(u => u.Follows)
             .Include(u => u.Honks);
