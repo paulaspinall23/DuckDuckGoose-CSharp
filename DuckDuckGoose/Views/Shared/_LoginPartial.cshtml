@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DuckDuckGoose.Areas.Identity.Data
+@inject SignInManager<DuckDuckGooseUser> SignInManager
+@inject UserManager<DuckDuckGooseUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a role="button" class="btn btn-outline-light me-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My account</a>
+    <form class="d-inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" class="btn btn-outline-light">Log out</button>
+    </form>
+}
+else
+{
+    <a role="button" class="btn btn-outline-light me-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <a role="button" class="btn btn-outline-light" asp-area="Identity" asp-page="/Account/Register">Register</a>
+}

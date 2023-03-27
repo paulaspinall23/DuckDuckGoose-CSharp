@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>aspnet-DuckDuckGoose-364444A6-4A6D-43D4-B1E1-98D8449D4C6F</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\User\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\User\UserPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Honk\CreateHonkForm.cshtml" />
+    </ItemGroup>
+
+</Project>
