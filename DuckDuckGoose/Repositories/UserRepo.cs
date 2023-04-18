@@ -8,6 +8,11 @@ namespace DuckDuckGoose.Repositories;
 
 public interface IUserRepo
 {
+    public IEnumerable<DuckDuckGooseUser> GetAllUsers();
+    public DuckDuckGooseUser GetUserById(string id);
+    public void Follow(string followerId, string followeeId);
+    public void Unfollow(string followerId, string followeeId);
+    public Pagination<DuckDuckGooseUser> GetUsers(GetUsersRequest request);
 }
 
 public class UserRepo : IUserRepo
@@ -17,5 +22,98 @@ public class UserRepo : IUserRepo
     public UserRepo(DuckDuckGooseIdentityDbContext context)
     {
         _context = context;
+    }
+
+    public void Follow(string followerId, string followeeId)
+    {
+        DuckDuckGooseUser follower, followee;
+        try
+        {
+            follower = GetUserById(followerId);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            throw new ArgumentOutOfRangeException($"Could not find follower with id {followerId}", e);
+        }
+
+        try
+        {
+            followee = GetUserById(followeeId);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            throw new ArgumentOutOfRangeException($"Could not find user to follow with id {followeeId}", e);
+        }
+
+        followee.Followers = followee.Followers.Append(follower);
+        _context.SaveChanges();
+    }
+
+    public IEnumerable<DuckDuckGooseUser> GetAllUsers()
+    {
+        return _context.Users.OrderBy(u => u.UserName);
+    }
+
+    public DuckDuckGooseUser GetUserById(string id)
+    {
+        try
+        {
+            return _context.Users
+                .Include(u => u.Followers)
+                .Include(u => u.Honks)
+                .Single(u => u.Id == id);
+        }
+        catch (InvalidOperationException e)
+        {
+            throw new ArgumentOutOfRangeException($"A user was not found with id {id}", e);
+        }
+    }
+
+    public void Unfollow(string followerId, string followeeId)
+    {
+        DuckDuckGooseUser follower, followee;
+        try
+        {
+            follower = GetUserById(followerId);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            throw new ArgumentOutOfRangeException($"Could not find follower with id {followerId}", e);
+        }
+
+        try
+        {
+            followee = GetUserById(followeeId);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            throw new ArgumentOutOfRangeException($"Could not find user to follow with id {followeeId}", e);
+        }
+
+        followee.Followers = followee.Followers.Where(u => u != follower).ToList();
+        _context.SaveChanges();
+    }
+
+    public Pagination<DuckDuckGooseUser> GetUsers(GetUsersRequest request)
+    {
+        IQueryable<DuckDuckGooseUser> filteredUsers = _context.Users
+            .OrderBy(u => u.UserName)
+            .Include(u => u.Followers)
+            .Include(u => u.Follows)
+            .Include(u => u.Honks);
+        if (request.Search is not null)
+        {
+            filteredUsers = filteredUsers
+                .Where(user => user.UserName.Contains(request.Search));
+        }
+        
+        if (request.Filter is not null)
+        {
+            filteredUsers = filteredUsers
+                .Include(u => u.Followers)
+                .Where(u => u.Followers.Any(u => u.Id == request.Filter));
+        }
+
+        return Pagination<DuckDuckGooseUser>.Paginate(filteredUsers, request.PageNumber.HasValue ? request.PageNumber.Value : 1, 5);
     }
 }
