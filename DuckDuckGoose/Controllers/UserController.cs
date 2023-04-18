@@ -1,4 +1,5 @@
-﻿using DuckDuckGoose.Repositories;
+﻿using DuckDuckGoose.Models.ViewModels;
+using DuckDuckGoose.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DuckDuckGoose.Controllers;
@@ -17,5 +18,12 @@ public class UserController : Controller
     {
         _logger = logger;
         _users = users;
+    }
+
+    [HttpGet("{userId}")]
+    public IActionResult UserPage([FromRoute] string userId, [FromQuery] int? page)
+    {
+        UserViewModel user = new UserViewModel(_users.GetUserById(userId), page.HasValue ? page.Value : 1, 5);
+        return View(user);
     }
 }
