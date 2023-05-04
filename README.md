@@ -25,7 +25,7 @@
 
 1. Run `dotnet run` to launch the app
 
-1. The app should now be available ar https://localhost:7151
+1. The app should now be available at https://localhost:7151
 
 If you get a security error when running the app, add and trust a self-signed certificate with `dotnet dev-certs https --trust`.
 
