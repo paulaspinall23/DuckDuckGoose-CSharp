@@ -43,8 +43,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <nav class="nav nav-pills nav-justified">
-        <a
-            asp-controller="Honk"
+        <a asp-controller="Honk"
             asp-action="Index"
             asp-route-search="@Model.Search"
             class="nav-link rounded-0 rounded-top active"
