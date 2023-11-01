@@ -1,4 +1,4 @@
-﻿using DuckDuckGoose.Models;
+using DuckDuckGoose.Models;
 using DuckDuckGoose.Models.Requests;
 using DuckDuckGoose.Models.ViewModels;
 using DuckDuckGoose.Repositories;
